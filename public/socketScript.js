@@ -60,11 +60,20 @@ const templateMensajes = Handlebars.compile(`
 `)
 var info 
 socket.on("productData", (data) => {
-  console.log("--->", data)
-  info = data
-  $("#table").html(
-    template({ products: data.products })
-  );
+  const elemento = document.getElementById("productosHTML")
+  elemento.innerHTML = ''
+  data.products.forEach((producto) => {
+   elemento.innerHTML += `
+        <tr>
+            <td>${producto.title}</td>
+            <td>${producto.price}</td>
+            <td><img width="50" src=${producto.thumbnail} alt="sin imagen"></td>
+            <td><button  class="btn btn-danger"onclick="deleteProduct('${producto._id}')">Eliminar</button></td>
+            <td><button class="btn btn-primary"onclick="editProduct('${producto._id}')">Editar</button></td>
+        </tr>
+    `
+  })
+   info = data
 });
 
 socket.on("disconnect", socket => {
@@ -91,7 +100,7 @@ const deleteProduct = (id) => {
 }
 
 const editProduct = (id) => {
-  let data = info.products.find(product => product.id === id)
+  let data = info.products.find(product => product._id === id)
   console.log(data)
   $titleData.value = data.title
   $priceData.value = data.price
@@ -99,7 +108,6 @@ const editProduct = (id) => {
   $editList.style.display = 'block'
   $addList.style.display = 'none'
   $value.value = id   
-  
 }
 
 

@@ -25,8 +25,8 @@ class Producto {
           let productosParse =  JSON.parse(JSON.stringify(productos))
           return productosParse
     }
-    async editar(id, {title, price, description}){
-        await productModel.findByIdAndUpdate(id, {title, price, description})
+    async editar(id, {title, price, thumbnail}){
+        await productModel.findByIdAndUpdate(id, {title, price, thumbnail})
         let productos = await productModel.find()
         let productosParse =  JSON.parse(JSON.stringify(productos))
         return productosParse

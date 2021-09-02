@@ -90,30 +90,22 @@ io.on('connect', async function  (socket) {
 
     
 
-    socket.on('addNewProduct', function (data) {
-        prod.guardar(data);
-        let datas = prod.listar()
-        datas.then(resp => {
-            io.sockets.emit('productData', { products: resp });
-        })
+    socket.on('addNewProduct', async (data) =>{
+        await prod.guardar(data);
+        let datas = await  prod.listar()    
+        io.sockets.emit('productData', { products: datas });
     });
 
-    socket.on('deleteProduct',(id) => {
-        console.log('eliminar: ', id)
-        prod.eliminar(id);
-        let data = prod.listar()
-        data.then(resp => {
-            io.sockets.emit('productData', { products: resp });
-        })
+    socket.on('deleteProduct', async (id) => {
+        await prod.eliminar(id);
+        let data = await prod.listar()
+        io.sockets.emit('productData', { products: data });   
     })
 
-    socket.on('editProduct', ({id, data}) => {
-        prod.editar(id, data)
-        console.log(id, data)
-        let datas = prod.listar()
-        datas.then(resp => {
-            io.sockets.emit('productData', { products: resp });
-        })
+    socket.on('editProduct', async ({id, data}) => {
+        await prod.editar(id, data)
+        let datas = await prod.listar()
+        io.sockets.emit('productData', { products: datas });
     })
 
 
