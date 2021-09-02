@@ -2,7 +2,6 @@
 const productModel = require('./db/model/product')
 class Producto {
     constructor(){
-
     }
     async guardar(producto){
         await productModel.create(producto)

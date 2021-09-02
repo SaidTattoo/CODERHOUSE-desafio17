@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const connectionString = "mongodb+srv://SaidTattoo:saidravestsk8@cluster0.cts60.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://SaidTattoo:saidravestsk8@cluster0.cts60.mongodb.net/ecommerce?retryWrites=true&w=majority"
 
 
 exports.getConnection = async () => {
